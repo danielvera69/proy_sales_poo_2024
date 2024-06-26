@@ -10,6 +10,7 @@ urlpatterns = [
     path('',HomeTemplateView.as_view(), name='home'),
     path('modulos/',ModuloTemplateView.as_view(), name='modulos'),
     path('security/', include('app.security.urls', namespace='security')),
+    path('core/', include('app.core.urls', namespace='core')),
     # path('signup/', core.signup, name='signup'),
     # path('logout/', core.signout, name='logout'),
     # path('signin/', core.signin, name='signin'),

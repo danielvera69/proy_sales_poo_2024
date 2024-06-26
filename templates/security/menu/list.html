@@ -49,11 +49,9 @@
                                 <th scope="col" class="px-6 py-3">RUC o DNI</th>
                                 <th scope="col" class="px-6 py-3">Dirección</th>
                                 <th scope="col" class="px-6 py-3">Celular</th>
-                                <th scope="col" class="px-6 py-3">Latitud</th>
-                                <th scope="col" class="px-6 py-3">Longitud</th>
+                                <th scope="col" class="px-6 py-3">Creación</th>
                                 <th scope="col" class="px-6 py-3">Estado</th>
                                 <th scope="col" class="px-6 py-3">Acciones</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -69,8 +67,7 @@
                                 <td class="px-6 py-4">{{ item.ruc }}</td>
                                 <td class="px-6 py-4">{{ item.address }}</td>
                                 <td class="px-6 py-4">{{ item.phone }}</td>
-                                <td class="px-6 py-4">{{ item.latitude }}</td>
-                                <td class="px-6 py-4">{{ item.longitude }}</td>
+                                <td class="px-6 py-4">{{ item.created | date:"Y-m-d" }}</td>
                                 <td class="px-6 py-4">
                                     {% if item.state %}
                                     <i class="fa-solid fa-check text-green-500"></i>
@@ -138,7 +135,7 @@
         </div>
     </section>
 
-    {% comment %} {% include 'core/delete.html' %}
+    {% include 'core/delete.html' %}
     <script>
         function openDeleteModal(id, name) {
             const deleteForm = document.getElementById('deleteForm');
@@ -150,5 +147,5 @@
         function closeModal() {
             document.getElementById('deleteModal').classList.add('hidden');
         }
-    </script> {% endcomment %}
+    </script>
 {% endblock %}

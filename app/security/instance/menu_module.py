@@ -9,7 +9,7 @@ class MenuModule:
         self._request = request
         self._path = self._request.path
         print(self._request)
-    # añade usuario, grupo y menus al diccionario data y a la session
+    # añade usuario, grupo y menus al diccionario data y a la session       
     def fill(self, data):
         # añade al diccionario el user, date
         data['user'] = self._request.user

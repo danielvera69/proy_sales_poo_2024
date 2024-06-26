@@ -22,7 +22,7 @@
                     class="block w-20 md:w-64 lg:w-64 mx-auto rounded-full" alt="Signin">
             </div>
             <div class="flex justify-center items-center">
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST"  enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-5 relative">
                         <label for="{{ form.username.id_for_label }}"

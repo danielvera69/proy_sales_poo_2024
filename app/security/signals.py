@@ -8,6 +8,7 @@ from django.db.models.signals import post_migrate
 from app.security.models import User
 
 @receiver(post_save, sender=User)
+
 def assign_user_group(sender, instance, created, **kwargs):
     if created:
         if instance.is_superuser:

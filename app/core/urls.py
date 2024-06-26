@@ -1,11 +1,16 @@
-# from django.urls import include, path
-# from app.core import views
+from django.urls import path
+from app.core.views import supplier
  
-# app_name='core' # define un espacio de nombre para la aplicación
-# urlpatterns = [    
-#     path('', views.home, name='home'),  # Página de inicio para todos los usuarios'
+app_name='core' # define un espacio de nombre para la aplicación
+urlpatterns = [    
+    # URLs de proveedores
+    path('supplier_list/', supplier.SupplierListView.as_view() ,name='supplier_list'),
+    path('supplier_create/', supplier.SupplierCreateView.as_view(),name='supplier_create'),
+    # path('supplier_update/<int:id>/', views.supplier_update,name='supplier_update'),
+    # path('supplier_delete/<int:id>/', views.supplier_delete,name='supplier_delete'),
+ ]
 
-#     # Otras URLs
+    # Otras URLs
 #     path('signup/', views.signup, name='signup'),
 #     path('logout/', views.signout, name='logout'),
 #     path('signin/', views.signin, name='signin'),
@@ -22,11 +27,6 @@
 #     path('brand_update/<int:id>/', views.brand_update,name='brand_update'),
 #     path('brand_delete/<int:id>/', views.brand_delete,name='brand_delete'),
 
-#     # URLs de proveedores
-#     path('supplier_list/', views.supplier_List,name='supplier_list'),
-#     path('supplier_create/', views.supplier_create,name='supplier_create'),
-#     path('supplier_update/<int:id>/', views.supplier_update,name='supplier_update'),
-#     path('supplier_delete/<int:id>/', views.supplier_delete,name='supplier_delete'),
 
 #     # URLs de categorías
 #     path('category_list/', views.category_List,name='category_list'),
@@ -35,4 +35,4 @@
 #     path('category_delete/<int:id>/', views.category_delete,name='category_delete'),
     
 #     path('purchase/', include('app.purchase.urls')),
-# ]
+# 

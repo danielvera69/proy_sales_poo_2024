@@ -805,24 +805,6 @@
 		AOS.init();
 	</script>
 
-	<!-- Color de pagina actual en la navbar -->
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			const navLinks = document.querySelectorAll('#menu a, #modal a'); // Selecciona todos los enlaces dentro de tu barra de navegación
-			const currentPath = window.location.pathname;
-			const darkModeEnabled = document.documentElement.classList.contains('dark');
-
-			navLinks.forEach(link => {
-				if (link.getAttribute('href') === currentPath) {
-					link.classList.add('active');
-					link.style.color = darkModeEnabled ? '#9FD4FF' : '#A4CAFE'; // Color para modo oscuro y claro
-				} else {
-					link.classList.remove('active');
-				}
-			});
-		});
-	</script>
-
 	<script>
 		window.addEventListener('scroll', function () {
 			var navbar = document.querySelector('header');
@@ -841,11 +823,7 @@
 		document.addEventListener('DOMContentLoaded', function () {
 			const themeToggleBtn = document.getElementById('themeIconContainer');
 			const themeIcon = document.getElementById('themeIcon');
-	
-			// Verifica si el modo oscuro está activado en el almacenamiento local
-			const savedTheme = localStorage.getItem('theme') || 'light';
-			setTheme(savedTheme);
-	
+
 			// Función para cambiar el ícono del tema
 			function toggleThemeIcon() {
 				if (document.documentElement.classList.contains('dark')) {
@@ -856,10 +834,33 @@
 					themeIcon.classList.add('fa-moon');
 				}
 			}
-	
+
+			// Función para aplicar un tema y actualizar el ícono
+			function setTheme(theme) {
+				document.documentElement.className = theme;
+				localStorage.setItem('theme', theme); // Guarda el tema seleccionado en localStorage para persistencia
+
+				// Mostrar u ocultar la imagen de fondo según el tema seleccionado (si es necesario)
+				const heroSection = document.getElementById('hero-section');
+				if (heroSection) {
+					if (theme === 'theme1') {
+						heroSection.classList.remove('no-background');
+					} else {
+						heroSection.classList.add('no-background');
+					}
+				}
+
+				// Cambia el ícono del tema
+				toggleThemeIcon();
+			}
+
+			// Verifica si hay un tema guardado en el almacenamiento local
+			const savedTheme = localStorage.getItem('theme') || 'light';
+			setTheme(savedTheme);
+
 			// Cambiar el ícono del tema al cargar la página
 			toggleThemeIcon();
-	
+
 			// Agrega un listener para el evento 'click' en el botón
 			themeToggleBtn.addEventListener('click', function (event) {
 				event.preventDefault(); // Previene el comportamiento predeterminado del ícono
@@ -870,42 +871,25 @@
 					setTheme('dark');
 				}
 			});
-	
-			// Función para aplicar un tema y actualizar el ícono
-			function setTheme(theme) {
-				document.documentElement.className = theme;
-				localStorage.setItem('theme', theme); // Guarda el tema seleccionado en localStorage para persistencia
-	
-				// Mostrar u ocultar la imagen de fondo según el tema seleccionado
-				const heroSection = document.getElementById('hero-section');
-				if (theme === 'theme1') {
-					heroSection.classList.remove('no-background');
-				} else {
-					heroSection.classList.add('no-background');
-				}
-	
-				// Cambia el ícono del tema
-				toggleThemeIcon();
-			}
-	
+
 			// Exponer setTheme globalmente para usarlo en el menú de temas
 			window.setTheme = setTheme;
 		});
 	</script>
-	
-	
-	<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Espera hasta que la página esté completamente cargada
-            window.addEventListener('load', function() {
-                // Ocultar el loader
-                document.getElementById('loader').style.display = 'none';
 
-                // Mostrar el contenido del sitio web
-                document.getElementById('content').classList.remove('hidden');
-            });
-        });
-    </script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			// Espera hasta que la página esté completamente cargada
+			window.addEventListener('load', function () {
+				// Ocultar el loader
+				document.getElementById('loader').style.display = 'none';
+
+				// Mostrar el contenido del sitio web
+				document.getElementById('content').classList.remove('hidden');
+			});
+		});
+	</script>
 
 </body>
 

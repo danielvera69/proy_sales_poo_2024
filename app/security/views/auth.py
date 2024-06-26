@@ -70,6 +70,7 @@ def signout(request):
 
 # # ----------------- Iniciar Sesion -----------------
 def signin(request):
+    
     data = {"title1": "Login",
             "title2": "Inicio de Sesión"}
     if request.method == "GET":
