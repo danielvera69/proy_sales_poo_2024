@@ -2,11 +2,12 @@ from django.urls import reverse_lazy
 from app.core.forms.supplier import SupplierForm
 from app.core.models import Supplier
 from app.security.instance.menu_module import MenuModule
-from app.security.mixins.mixins import CreateViewMixin, ListViewMixin, PermissionMixin
+from app.security.mixins.mixins import CreateViewMixin, DeleteViewMixin, ListViewMixin, PermissionMixin, UpdateViewMixin
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.contrib import messages
 from django.db.models import Q
 
-class SupplierListView(ListViewMixin, ListView):
+class SupplierListView(PermissionMixin,ListViewMixin, ListView):
     template_name = 'core/suppliers/list.html'
     model = Supplier
     context_object_name = 'suppliers'
@@ -21,37 +22,66 @@ class SupplierListView(ListViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['permission_add'] = context['permissions'].get('add_supplier','')
+        # context['permission_add'] = context['permissions'].get('add_supplier','')
         context['create_url'] = reverse_lazy('core:supplier_create')
         return context
 
-class SupplierCreateView(CreateViewMixin, CreateView):
+class SupplierCreateView(PermissionMixin,CreateViewMixin, CreateView):
     model = Supplier
     template_name = 'core/suppliers/form.html'
     form_class = SupplierForm
     success_url = reverse_lazy('core:supplier_list')
-    permission_required = 'add_supplier'
+    permission_required = 'add_supplier' # en PermissionMixn se verfica si un grupo tiene el permiso
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['grabar'] = 'Grabar Proveedor'
         context['back_url'] = self.success_url
         return context
-     
-# # Crear un proveedor
-# def supplier_create(request):
-#     data = {"title1": "IC - Crear Proveedores", "title2": "Ingreso De Proveedores"}
-#     if request.method == "POST":
-#         form = SupplierForm(request.POST, request.FILES)  # Añadir request.FILES para manejar archivos
-#         if form.is_valid():
-#             supplier = form.save(commit=False)
-#             supplier.user = request.user  # Asignar el usuario actual al proveedor
-#             supplier.save()
-#             messages.success(request, f"Éxito al crear al proveedor {supplier.name}.")
-#             return redirect("core:supplier_list")
-#     else:
-#         form = SupplierForm()  # Mover esto aquí para que el formulario se cree en ambos casos
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        supplier = self.object
+        messages.success(self.request, f"Éxito al crear al proveedor {supplier.name}.")
+        return response
+    
+class SupplierUpdateView(PermissionMixin,UpdateViewMixin, UpdateView):
+    model = Supplier
+    template_name = 'core/suppliers/form.html'
+    form_class = SupplierForm
+    success_url = reverse_lazy('core:supplier_list')
+    permission_required = 'change_supplier'
 
-#     # Pasar el formulario al contexto de la plantilla en ambos casos
-#     data["form"] = form
-#     return render(request, "core/suppliers/form.html", data)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['grabar'] = 'Actualizar Proveedor'
+        context['back_url'] = self.success_url
+        return context
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        supplier = self.object
+        messages.success(self.request, f"Éxito al actualizar el proveedor {supplier.name}.")
+        return response
+    
+class SupplierDeleteView(PermissionMixin,DeleteViewMixin, DeleteView):
+    model = Supplier
+    template_name = 'core/delete.html'
+    success_url = reverse_lazy('core:supplier_list')
+    permission_required = 'delete_supplier'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['grabar'] = 'Eliminar Proveedorl'
+        context['description'] = f"¿Desea Eliminar al Proveedor: {self.object.name}?"
+        context['back_url'] = self.success_url
+        return context
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_message = f"Éxito al eliminar lógicamente al proveedor {self.object.name}."
+        messages.success(self.request, success_message)
+        # Cambiar el estado de eliminado lógico
+        # self.object.deleted = True
+        # self.object.save()
+        return super().delete(request, *args, **kwargs)

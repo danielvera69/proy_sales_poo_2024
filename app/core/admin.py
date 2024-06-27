@@ -1,10 +1,8 @@
-# from django.contrib import admin
+from django.contrib import admin
 
-# from app.core.models import Category,Brand,Supplier,Product
+from app.core.models import Supplier
 
-# admin.site.register(Category)
-# admin.site.register(Brand)
-# admin.site.register(Supplier)
+admin.site.register(Supplier)
 
 # from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin

@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 # configuracion de contexto generico y permisos de botones
 class ListViewMixin(object):
     query = None
-    paginate_by = 3
+    paginate_by = 2
     
     def dispatch(self, request, *args, **kwargs):
         self.query = Q()
@@ -35,7 +35,7 @@ class ListViewMixin(object):
 class CreateViewMixin(object):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = f'{self.model._meta.verbose_name_plural}'
+        context['title'] = f'{self.model._meta.verbose_name}'
         context['permissions'] = self._get_permission_dict_of_group()
         MenuModule(self.request).fill(context)
         return context

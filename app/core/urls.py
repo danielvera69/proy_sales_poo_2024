@@ -6,8 +6,8 @@ urlpatterns = [
     # URLs de proveedores
     path('supplier_list/', supplier.SupplierListView.as_view() ,name='supplier_list'),
     path('supplier_create/', supplier.SupplierCreateView.as_view(),name='supplier_create'),
-    # path('supplier_update/<int:id>/', views.supplier_update,name='supplier_update'),
-    # path('supplier_delete/<int:id>/', views.supplier_delete,name='supplier_delete'),
+    path('supplier_update/<int:pk>/', supplier.SupplierUpdateView.as_view(),name='supplier_update'),
+    path('supplier_delete/<int:pk>/', supplier.SupplierDeleteView.as_view(),name='supplier_delete'),
  ]
 
     # Otras URLs
