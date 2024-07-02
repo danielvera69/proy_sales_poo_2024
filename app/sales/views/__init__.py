@@ -25,7 +25,7 @@ class SupplierListView(PermissionMixin,ListViewMixin, ListView):
         # context['permission_add'] = context['permissions'].get('add_supplier','')
         context['create_url'] = reverse_lazy('core:supplier_create')
         return context
-    
+
 class SupplierCreateView(PermissionMixin,CreateViewMixin, CreateView):
     model = Supplier
     template_name = 'core/suppliers/form.html'

@@ -86,7 +86,7 @@ class PermissionMixin(object):
                 return super().get(request, *args, **kwargs)
 
             group = user.get_group_session()
-            permissions = self._get_permissions_to_validate()
+            permissions = self._get_permissions_to_validate() 
 
             if not permissions.__len__():
                 return super().get(request, *args, **kwargs)

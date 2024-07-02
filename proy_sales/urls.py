@@ -11,6 +11,7 @@ urlpatterns = [
     path('modulos/',ModuloTemplateView.as_view(), name='modulos'),
     path('security/', include('app.security.urls', namespace='security')),
     path('core/', include('app.core.urls', namespace='core')),
+    path('sales/', include('app.sales.urls', namespace='sales')),
     # path('signup/', core.signup, name='signup'),
     # path('logout/', core.signout, name='logout'),
     # path('signin/', core.signin, name='signin'),

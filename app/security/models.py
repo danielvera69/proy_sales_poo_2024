@@ -127,11 +127,11 @@ class User(AbstractUser):
           
         )
     
-    def save(self, *args, **kwargs):
-        # Comprueba si la contraseña ha cambiado
-        if self.pk is None or not User.objects.filter(pk=self.pk, password=self.password).exists():
-            self.set_password(self.password)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # Comprueba si la contraseña ha cambiado
+    #     if self.pk is None or not User.objects.filter(pk=self.pk, password=self.password).exists():
+    #         self.set_password(self.password)
+    #     super().save(*args, **kwargs)
         
     def __str__(self):
         return '{}'.format(self.username)

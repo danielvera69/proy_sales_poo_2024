@@ -159,13 +159,13 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT, related_name='product_brands', verbose_name='Marca')
     cost=models.DecimalField(verbose_name='Costo Producto',max_digits=10,decimal_places=2,default=Decimal('0.0'))
     price = models.DecimalField(verbose_name='Precio',max_digits=10, decimal_places=2,validators=[valida_numero_flotante_positivo])
-    stock = models.IntegerField(verbose_name='Costo',default=100,validators=[valida_numero_entero_positivo])
+    stock = models.IntegerField(verbose_name='Stock',default=100,validators=[valida_numero_entero_positivo])
     iva = models.ForeignKey(Iva,on_delete=models.PROTECT, related_name='product_iva', verbose_name='Iva')
     expiration_date = models.DateTimeField(verbose_name='Caducidad',default=timezone.now() + datetime.timedelta(days=30))
     line = models.ForeignKey(Line, on_delete=models.PROTECT,related_name='product_lines', verbose_name='Linea')
     categories = models.ManyToManyField('Category',related_name="products_categories", verbose_name='Categoria')
     image = models.ImageField(verbose_name='Imagen',upload_to='products/', blank=True, null=True)
-    state = models.CharField(verbose_name='Activo',max_length=1, choices=(('A','Activo'),('B','De Baja')), default = 'A')
+    state = models.CharField(verbose_name='Estado',max_length=1, choices=(('A','En Percha'),('B','De Baja')), default = 'A')
     active = models.BooleanField(verbose_name='Activo',default=True)
     
     objects = models.Manager()  # Manager predeterminado
