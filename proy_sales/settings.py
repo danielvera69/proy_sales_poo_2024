@@ -100,8 +100,8 @@ DATABASES = {
         'USER': os.environ.get("DB_USERNAME", ""),
         'PASSWORD': os.environ.get("DB_PASSWORD", ""),
         'HOST': os.environ.get("DB_SOCKET", ""),
-        'PORT': os.environ.get("DB_PORT", "5432"),
-        'ATOMIC_REQUESTS': True
+        'PORT': os.environ.get("DB_PORT", "5432")
+        
     }
 }
 AUTH_PASSWORD_VALIDATORS = [

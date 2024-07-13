@@ -4,7 +4,7 @@ from django import forms
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
-        fields = ["customer", "payment_method", "issue_date", "subtotal", "iva", "discount", "total", "payment", "change", "state"]
+        fields = ["customer", "payment_method", "issue_date", "subtotal", "iva", "discount", "total", "payment", "change"]
         widgets = {
             "customer": forms.Select(
                 attrs={
@@ -20,7 +20,8 @@ class InvoiceForm(forms.ModelForm):
                 attrs={
                     "type": "date",
                     "class": "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-12 dark:bg-principal dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light",
-                }
+                },
+                format='%Y-%m-%d'
             ),
             "subtotal": forms.NumberInput(
                 attrs={
@@ -58,11 +59,7 @@ class InvoiceForm(forms.ModelForm):
                     "class": "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-12 dark:bg-principal dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light",
                 }
             ),
-            "state": forms.CheckboxInput(
-                attrs={
-                    "class": "mt-1 block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                }
-            ),
+           
         }
         labels = {
             "customer": "Cliente",
@@ -74,5 +71,5 @@ class InvoiceForm(forms.ModelForm):
             "total": "Total",
             "payment": "Pago",
             "change": "Cambio",
-            "state": "Estado",
+          
         }

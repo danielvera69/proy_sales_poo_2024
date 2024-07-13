@@ -58,6 +58,7 @@ class SupplierUpdateView(PermissionMixin,UpdateViewMixin, UpdateView):
         context['back_url'] = self.success_url
         return context
     
+    
     def form_valid(self, form):
         response = super().form_valid(form)
         supplier = self.object

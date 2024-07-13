@@ -1,3 +1,5 @@
+from datetime import datetime
+from decimal import Decimal
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from app.security.models import AuditUser
@@ -41,15 +43,12 @@ def valida_numero_flotante_positivo(value):
         raise ValidationError('Debe ingresar un número flotante válido.')
     
 
-# class Parameters:
-#     LOGO_SYSTEM = '/static/img/iguana_corporation.png'
-#     SYSTEM_NAME = 'E-ComPro'
-
-#     # ACTIONS FOR AUDIT TABLES
-#     ACTION_ADD = 'A'
-#     ACTION_MODIFY = 'M'
-#     ACTION_DELETE = 'E'
-    
+def custom_serializer(obj):
+    if isinstance(obj, Decimal):
+        return str(obj)
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
     
 def save_audit(request, model, action):
    

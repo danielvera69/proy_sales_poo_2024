@@ -12,7 +12,7 @@ class Invoice(models.Model):
     total = models.DecimalField(verbose_name='Total',default=0, max_digits=16, decimal_places=2)
     payment = models.DecimalField(verbose_name='Pago',default=0, max_digits=16, decimal_places=2)
     change = models.DecimalField(verbose_name='Cambio',default=0, max_digits=16, decimal_places=2)
-    state = models.CharField(verbose_name='Estado',max_length=1,choices=(('N','Normal'),('A','Anulada'),('M','Modificada')),default='N')  
+    state = models.CharField(verbose_name='Estado',max_length=1,choices=(('F','Factura'),('A','Anulada'),('M','Modificada')),default='F')  
     active = models.BooleanField(verbose_name='Activo',default=True)
     
     class Meta:
@@ -32,7 +32,6 @@ class Invoice(models.Model):
 class InvoiceDetail(models.Model):
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE,related_name='detail',verbose_name='Factura')
     product = models.ForeignKey(Product, on_delete=models.PROTECT,related_name='InvoiceDetail_products',verbose_name='Producto')
-    cost = models.DecimalField(default=0, max_digits=16, decimal_places=2, null=True, blank=True)
     quantity = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     price = models.DecimalField(default=0, max_digits=16, decimal_places=2)
     subtotal = models.DecimalField(default=0, max_digits=16, decimal_places=2)

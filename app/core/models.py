@@ -182,7 +182,7 @@ class Product(models.Model):
         self.save()
         
     def __str__(self):
-        return self.description
+        return f"{self.description} - {self.stock}"
 
     
     # def get_absolute_url(self):
@@ -289,6 +289,7 @@ class Customer(models.Model):
         
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
+
 
 class PaymentMethod(models.Model):
     description = models.CharField(verbose_name='Metodo de Pago',max_length=100)
